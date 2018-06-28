@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import MiniDrawer from './components/NavBar';
+import {BrowserRouter} from 'react-router-dom';
 
 function App() {
   return (
-    <Button variant="raised" color="primary">
-      Hello World
-    </Button>
+    <React.Fragment>
+      <CssBaseline />
+       <MiniDrawer />
+    </React.Fragment>
   );
 }
 
