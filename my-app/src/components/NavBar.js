@@ -14,6 +14,9 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import { SelectionListItems, RecommendationListItems } from './tileData';
 import {BrowserRouter} from 'react-router-dom';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+import MenuIcon from '@material-ui/icons/Menu';
 
 const drawerWidth = 240;
 
@@ -114,7 +117,7 @@ class MiniDrawer extends React.Component {
               onClick={this.handleDrawerOpen}
               className={classNames(classes.menuButton, this.state.open && classes.hide)}
             >
-              Menu
+              <MenuIcon />
             </IconButton>
             <Typography variant="title" color="inherit" noWrap>
               IntelliTrip
@@ -131,7 +134,7 @@ class MiniDrawer extends React.Component {
           >
             <div className={classes.toolbar}>
               <IconButton onClick={this.handleDrawerClose}>
-                {theme.direction === 'rtl' ? <p> Right </p>: <p> Left </p>}
+                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
               </IconButton>
             </div>
             <Divider />
