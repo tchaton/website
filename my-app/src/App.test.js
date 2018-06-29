@@ -7,7 +7,7 @@ it('renders without crashing', () => {
   const div = document.createElement('root');
   ReactDOM.render(
   	<BrowserRouter>
-  		<App />
+  		<App style={{"height": "100%"}/>
 	</BrowserRouter>
   	, div);
   ReactDOM.unmountComponentAtNode(div);
