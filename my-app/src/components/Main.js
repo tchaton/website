@@ -35,7 +35,7 @@ const MapWithAMakredInfoWindow = compose(
 )(props =>
   <GoogleMap
     defaultZoom={10}
-    center={!props.is_searched ? { lat: -34.397, lng: 150.644 } : { lat: props.lat, lng: props.lng }}
+    center={!props.is_searched ? { lat: -34.397, lng: 150.644 } : { lat: props.places.lat, lng: props.places.lng }}
   >
   </GoogleMap>
 );
@@ -45,12 +45,28 @@ class Main extends React.Component{
 	constructor(props){
 		super(props);
 		this.handleSearch = this.handleSearch.bind(this)
-		this.state = {'lat':0, 'lng':0, 'is_searched':false};
+		this.state = {'places':{}, 'is_searched':false};
+	}
+
+	componentWillMount(){
+		const places = sessionStorage.getItem('places');
+		if (places) {
+			console.log(places);
+      		this.setState({ 'places': JSON.parse(places), 'is_searched': true});
+      	return;
+		}
+	}
+	componentWillUnmount(){
+		console.log(this.state.places)
+		console.log('Here')
+		sessionStorage.setItem('places', JSON.stringify(this.state.places));
+		const places = sessionStorage.getItem('places');
+		console.log(places)
 	}
 
 	handleSearch(places){
 		const location = places[0].geometry.location
-		this.setState({'lat':location.lat(), 'lng':location.lng(), 'is_searched':true});
+		this.setState({'places':{'lat':location.lat(), 'lng':location.lng()}, 'is_searched':true});
 	}
 	render() {
 		const {classes} = this.props;
@@ -61,8 +77,7 @@ class Main extends React.Component{
 				  loadingElement={<div style={{ height: `100%` }} />}
 				  containerElement={<div style={{ height: `400px` }} />}
 				  mapElement={<div style={{ height: `100%` }} />}
-				  lat={this.state.lat}
-				  lng={this.state.lng}
+				  places={this.state.places}
 				  is_searched={this.state.is_searched}
 				/>
 				<Controler handleSearch={this.handleSearch}/>
