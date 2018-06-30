@@ -6,18 +6,18 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Menu from '@material-ui/core/Menu';
-import Switch from '@material-ui/core/Switch';
 import Drawer from '@material-ui/core/Drawer';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import { SelectionListItems, RecommendationListItems } from './NavBar';
-import {BrowserRouter} from 'react-router-dom';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import MenuIcon from '@material-ui/icons/Menu';
 import Main from './Main'
+import Home from './Home'
 
 const drawerWidth = 240;
 
@@ -106,6 +106,7 @@ class MiniDrawer extends React.Component {
     const { classes, theme } = this.props;
 
     return (
+      <BrowserRouter>
       <div className={classes.root} style={{"height": "100%"}}>
         <AppBar
           position="absolute"
@@ -139,20 +140,20 @@ class MiniDrawer extends React.Component {
               </IconButton>
             </div>
             <Divider />
-            <BrowserRouter>
             <List>{SelectionListItems}</List>
-            </BrowserRouter>
             <Divider />
-            <BrowserRouter>
             <List>{RecommendationListItems}</List>
-            </BrowserRouter>
             <Divider />
           </Drawer>
           <main className={classes.content} >
            <div className={classes.toolbar} />
-            <Main />
+              <Switch>
+                <Route  exact path="/" component={Home}/>
+                <Route  exact path="/selection" component={Main}/>
+              </Switch>
           </main>
       </div>
+      </BrowserRouter>
     );
   }
 }
