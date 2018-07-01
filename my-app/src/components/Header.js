@@ -107,52 +107,52 @@ class MiniDrawer extends React.Component {
 
     return (
       <BrowserRouter>
-      <div className={classes.root} style={{"height": "100%"}}>
-        <AppBar
-          position="absolute"
-          className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
-        >
-          <Toolbar disableGutters={!this.state.open}>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={this.handleDrawerOpen}
-              className={classNames(classes.menuButton, this.state.open && classes.hide)}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="title" color="inherit" noWrap>
-              IntelliTrip
-            </Typography>
-          </Toolbar>
-        </AppBar>
-          <Drawer
-            variant="permanent"
-            classes={{
-              paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
-            }}
-            open={this.state.open}
-            style={{"height": "auto"}}
+        <div name='top' className={classes.root} style={{"height": "100%"}}>
+          <AppBar
+            position="absolute"
+            className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
           >
-            <div className={classes.toolbar}>
-              <IconButton onClick={this.handleDrawerClose}>
-                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            <Toolbar disableGutters={!this.state.open}>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={this.handleDrawerOpen}
+                className={classNames(classes.menuButton, this.state.open && classes.hide)}
+              >
+                <MenuIcon />
               </IconButton>
-            </div>
-            <Divider />
-            <List>{SelectionListItems}</List>
-            <Divider />
-            <List>{RecommendationListItems}</List>
-            <Divider />
-          </Drawer>
-          <main className={classes.content} >
-           <div className={classes.toolbar} />
-              <Switch>
-                <Route  exact path="/" component={Home}/>
-                <Route  exact path="/selection" component={Main} extraProps={{foo: "bar"}}/>
-              </Switch>
-          </main>
-      </div>
+              <Typography variant="title" color="inherit" noWrap>
+                IntelliTrip
+              </Typography>
+            </Toolbar>
+          </AppBar>
+            <Drawer
+              variant="permanent"
+              classes={{
+                paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
+              }}
+              open={this.state.open}
+              style={{"height": "auto"}}
+            >
+            <div className={classes.toolbar}>
+                <IconButton onClick={this.handleDrawerClose}>
+                  {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                </IconButton>
+              </div>
+              <Divider />
+              <List>{SelectionListItems}</List>
+              <Divider />
+              <List>{RecommendationListItems}</List>
+              <Divider />
+            </Drawer>
+            <main className={classes.content} style={{'backgroundColor': 'gray', 'width':'100%'}}>
+             <div className={classes.toolbar} />
+                <Switch>
+                  <Route  exact path="/" component={Home}/>
+                  <Route  name='Selection' exact path="/selection" component={Main} extraProps={{foo: "bar"}} />
+                </Switch>
+            </main>
+        </div>
       </BrowserRouter>
     );
   }
