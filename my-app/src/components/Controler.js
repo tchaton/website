@@ -73,7 +73,7 @@ class Controler extends React.Component {
 
 	render(){
 		return (
-			<div style={{'backgroundColor': 'white', 'width':'100%',}}>
+			<div style={{'backgroundColor': 'white', 'width':'45%', 'padding': '5px'}}>
 				<br />
 					<PlacesWithStandaloneSearchBox handleSearch={this.props.handleSearch}/>
 				<br />

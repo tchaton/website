@@ -1,18 +1,40 @@
+import 'react-dates/initialize'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Controler from './Controler'
 import RecommendationEngine from './RecommendationEngine'
+import FullWidthGrid from './FullWidthGrid'
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import moment from 'moment';
+
+import { DateRangePicker } from 'react-dates';
+
+
+var SelectedStartDate = moment('2017-05-05');
+var SelectedEndDate = moment('2017-05-09');
+
 
 const styles = theme => ({
   main: {
-  	backgroundColor:'white',
+  	backgroundColor:'blue',
   	position: 'relative',
 	}
+});
+
+const styles2 = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
 });
 
 const { compose, withProps, withStateHandlers } = require("recompose");
@@ -48,7 +70,23 @@ class Main extends React.Component{
 	constructor(props){
 		super(props);
 		this.handleSearch = this.handleSearch.bind(this)
-		this.state = {'places':{}, 'is_searched':false, 'destination':{}};
+		this.state = {'places':{}, 
+					  'is_searched':false, 
+					  'destination':{},
+					  focusedInput: null,
+        			  startDate: SelectedStartDate,
+        			  endDate:SelectedEndDate};
+       	this.onDatesChange = this.onDatesChange.bind(this);
+    	this.onFocusChange = this.onFocusChange.bind(this);
+	}
+
+	onDatesChange({ startDate, endDate }) {
+
+	    this.setState({ startDate, endDate });
+	}
+
+	onFocusChange(focusedInput) {
+	    this.setState({ focusedInput });
 	}
 
 	componentWillMount(){
@@ -82,22 +120,33 @@ class Main extends React.Component{
 	}
 	render() {
 		const {classes} = this.props;
+		const { focusedInput, startDate, endDate } = this.state;
 		return (
-			<div classNames={classNames(classes.main, true)} >
-				<MapWithAMakredInfoWindow
-				  googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places"
-				  loadingElement={<div style={{ height: `100%` }} />}
-				  containerElement={<div style={{ height: `400px` }} />}
-				  mapElement={<div style={{ height: `100%` }} />}
-				  places={this.state.places}
-				  is_searched={this.state.is_searched}
-				/>
-				<Divider />
-				<br />
-				<Controler handleSearch={this.handleSearch}/>
-				<br />
-				<Divider />
-				<RecommendationEngine />
+			<div name='main_holder' classNames={classNames(classes.main, true)} >
+		      <Grid container spacing={24}>
+		        <Grid item xs={12} sm={5}>
+		       	 <Paper style={{'height':'25vh'}} className={classes.paper}>
+		          	<Controler handleSearch={this.handleSearch}/>
+		          </Paper>
+		        </Grid>
+		        <Grid item xs={12} sm={7}>
+		          <Paper style={{'height':'25vh'}} className={classes.paper}>
+		      		<MapWithAMakredInfoWindow
+					  googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places"
+					  loadingElement={<div style={{ height: `100%` }} />}
+					  containerElement={<div style={{ height: `100%` }} />}
+					  mapElement={<div style={{ height: `100%`, width: `100%` }} />}
+					  places={this.state.places}
+					  is_searched={this.state.is_searched}
+					/>
+		          </Paper>
+		        </Grid>
+		        <Grid item xs={12} sm={12}>
+		          <Paper style={{'height':'61vh'}} className={classes.paper}>
+		          	<RecommendationEngine />
+		          </Paper>
+		        </Grid>
+		      </Grid>
 			</div>
 		);
 	}
