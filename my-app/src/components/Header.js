@@ -145,7 +145,7 @@ class MiniDrawer extends React.Component {
               <List>{RecommendationListItems}</List>
               <Divider />
             </Drawer>
-            <main className={classes.content} style={{'backgroundColor': 'gray', 'width':'100%'}}>
+            <main className={classes.content} style={{'backgroundColor': 'gray', 'width':'80%'}}>
              <div className={classes.toolbar} />
                 <Switch>
                   <Route  exact path="/" component={Home}/>

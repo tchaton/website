@@ -1,63 +1,90 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import IconButton from '@material-ui/core/IconButton';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import 'react-virtualized/styles.css'
-import RecommendationColumn from './RecommendationColumn'
-import { MultiGrid } from 'react-virtualized'
-
-const styles = theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
-  },
-  gridList: {
-    flexWrap: 'nowrap',
-    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
-    transform: 'translateZ(0)',
-  },
-  title: {
-    color: theme.palette.primary.light,
-  },
-  titleBar: {
-    background:
-      'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-  },
-});
+import * as React from 'react';
+import { DropTarget, DragDropContext, ConnectDropTarget } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+const update = require('immutability-helper');
 
 
-function SingleLineGridList(props) {
-  const tileData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-  return (
-    <div style={{'flex-direction': 'row', height: '100%', 'overflow': 'scroll'}}>
-    {tileData.map((number) => 
-    	<RecommendationColumn value={number}/>
-	)}
-    </div>
-  );
-}
-
-SingleLineGridList.propTypes = {
-  classes: PropTypes.object.isRequired,
+export const ItemTypes = {
+  CONTAINER: 'container'
 };
 
-class RecommendationEngine extends React.Component {
-
+class Card extends React.Component{
+	constructor(props){
+		super(props);
+	}
 	render(){
 		return (
-			<div style={{'backgroundColor': 'red', 'width':'100%', height: '100%', 'position': 'relative'}}>
-			<SingleLineGridList classes={styles}/>
+			<div style={{backgroundColor: 'yellow', 'height':"100%", 'width':"80%", 'marginLeft': '20px'}} >
+				{this.props.number}
 			</div>
 		);
 	}
 }
 
-export default RecommendationEngine;
+export class Responsive extends React.Component {
+  render() {
+    var settings = {
+      dots: true,
+      infinite: false,
+      speed: 500,
+      slidesToShow: 4,
+      slidesToScroll: 4,
+      initialSlide: 0,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            infinite: true,
+            dots: true
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            initialSlide: 2
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ]
+    };
+    const data = [1, 2, 3, 4, 5]
+    return (
+      <div style={{'backgroundColor': 'red', 'width':'99%', height: '100%', 'margin':'0 auto'}}>
+        <h2> Responsive </h2>
+        <Slider {...settings}>
+        	{data.map((item) => 
+        		<Card number={item} />
+        	)}
+        </Slider>
+      </div>
+    );
+  }
+}
+
+
+
+class RecommendationEngine extends React.Component {
+
+	render(){
+		return (
+			<div style={{'backgroundColor': 'gray', 'width':'100%', height: '100%'}}>
+			<Responsive />
+			</div>
+		);
+	}
+}
+
+export default DragDropContext(HTML5Backend)(RecommendationEngine);
