@@ -148,7 +148,7 @@ class MiniDrawer extends React.Component {
             <main className={classes.content} style={{'backgroundColor': 'gray', 'width':'80%'}}>
              <div className={classes.toolbar} />
                 <Switch>
-                  <Route  exact path="/" component={Home}/>
+                  <Route  exact path="/home" component={Home}/>
                   <Route  name='Selection' exact path="/selection" component={Main} extraProps={{foo: "bar"}} />
                 </Switch>
             </main>

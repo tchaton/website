@@ -1,3 +1,37 @@
+## Getting started
+
+### Local development
+
+#### Installation
+
+    npm install
+    pip install flask
+    pip install sygicmaps
+
+#### Launch
+
+    # In first console
+    npm start
+    # In second console
+    cd server
+    set FLASK_APP=server.py
+    flask run
+
+### Deployment
+
+For "Ubuntu on Windows":
+
+    cd server
+    sudo add-apt-repository ppa:deadsnakes/ppa
+    sudo apt-get update
+    sudo apt-get install python3.6 python3.6-venv
+    python3.6 -m venv env
+    source env/bin/activate
+    pip install zappa
+
+
+## Documentation
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
