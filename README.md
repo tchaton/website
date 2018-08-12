@@ -1,4 +1,4 @@
-## 1. Getting started
+## Getting started
 
 ### Local development
 
@@ -30,7 +30,7 @@ For "Ubuntu on Windows":
     pip install zappa
 
 
-## 2. Documentation
+## Documentation
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
