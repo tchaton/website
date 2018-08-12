@@ -1,14 +1,14 @@
 ## 1. Getting started
 
-### A. Local development
+### Local development
 
-#### a. Installation
+#### Installation
 
     npm install
     pip install flask
     pip install sygicmaps
 
-#### b. Launch
+#### Launch
 
     # In first console
     npm start
@@ -17,7 +17,7 @@
     set FLASK_APP=server.py
     flask run
 
-### B. Deployment
+### Deployment
 
 For "Ubuntu on Windows":
 
