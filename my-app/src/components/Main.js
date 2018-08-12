@@ -122,7 +122,7 @@ class Main extends React.Component{
 		const {classes} = this.props;
 		const { focusedInput, startDate, endDate } = this.state;
 		return (
-			<div name='main_holder' classNames={classNames(classes.main, true)} >
+			<div name='main_holder' className={classNames(classes.main, true)} >
 		      <Grid container spacing={24}>
 		        <Grid item xs={12} sm={5}>
 		       	 <Paper style={{'height':'25vh'}} className={classes.paper}>
